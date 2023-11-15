@@ -1,55 +1,101 @@
-def algoritmo_Burbuja(list:list) -> list:
-    """Ordena de menor a mayor todos los números de una lista.
+import os
 
-    Args:
-        list (list): una lista con los números que se van a ordenar de menor a mayor.
-    
-    Returns: 
-        newList (list): lista con los números ordenados de menor a mayor.
+def borrar_consola():
+    """Clears the console.
+
+    In the os module if the Operating system is Windows 'os.name' will be 'nt', if the operating system is mac or linux-based it will be 'posix' 
     """
-    for i in range(0, len(list) - 1):
-        for j in range(0, len(list)-1 -i):
-            if list[j] > list[j+1]:
-                holder = list[j]
-                list[j] = list[j+1]
-                list[j+1] = holder
-    newList = list
-    return newList
+    if os.name == "nt":
+        return os.system("cls")
+    else:
+        return os.system("clear")
 
 
-def pedir_Numero() -> int:
-    """Pide un número entero al usuario y comprueba si el valor introducido es un número entero entre 0 y 10.
-    
+def pedir_numero() -> list:
+    """Pide 6 números entre 1 y 49 y los almacena en una lista
+
+    Raises:
+        ValueError: Error de valor por incorrecta introducción de número, puede darse 
+        por introducir un número fuera de rango o por introducir caracteres no numericos
+
     Returns:
-        numero: valor introducido si es entero entre 0 y 10.
+        list_num: lista que almacena los números introducidos.
     """
-    loop = False
-    while not loop:
+    list_num = []
+
+    for i in range(1, 7):
+        loop = True
+        while loop:
+            try:
+                numero = int(input(f"({i})=> "))
+                if list_num.count(numero) == 1:
+                    raise ValueError
+                if 0 < numero < 49:
+                    list_num.append(numero)
+                    loop = False
+                else:
+                    raise ValueError
+            except ValueError:
+                print("Error, vuelva a introducir el número.")
+
+    return list_num
+
+
+def pedir_reintegro() -> int:
+    """Pide un número entre 1 y 9
+
+    Raises:
+        ValueError: Error de valor por incorrecta introducción de número, puede darse 
+        por introducir un número fuera de rango o por introducir caracteres no numericos
+
+    Returns:
+        int: número introducido por el usuario
+    """
+    loop = True
+
+    while loop:
         try:
-            numero = int(input("Introduzca un número entero entre 0 y 99: "))
-            if numero >= 0 and numero <= 99:
-                loop =  True
+            numero = int(input("(Reintegro)=> "))
+            if 0 < numero < 10:
+                loop = False
             else:
                 raise ValueError
         except ValueError:
-            print("La entrada no es correcta.")
+            print("Error, vuelva a introducir el número.")
+
     return numero
 
 
-def main():
-    listaNumeros = []
-    for i in range(0,5):
-        numero = pedir_Numero()
-        listaNumeros.append(numero)
-    newList = algoritmo_Burbuja(listaNumeros)
-    print("Los números ganadores de la primitiva son: ", end="")
-    for i in range(0, len(newList)):
-        if newList[i] < 10:
-            print("0" + str(newList[i]), end="")
+def imprimir_numeros(list_num: list) -> str:
+    """Crea una cadena de caracteres con todos los número de la lotería y el reintegro
+
+    Args:
+        list_num (list): lista con los 6 números de la loteria y el reintegro
+
+    Returns:
+        str: cadena de caracteres con todos los número de la lotería y el reintegro
+    """
+    nums_str = "Los números de la loteria son: "
+
+    for i in range(0, 6):
+        nums_str += f"{list_num[i]:02d}"
+        if i != 5:
+            nums_str += ", "
         else:
-            print(newList[i], end="")
-        if i != len(newList) - 1:
-            print(" ", end="")
+            nums_str += ". "
+    nums_str += "El reintegro es " + str(list_num[6]) + "."
+
+    return nums_str
+
+
+def main():
+    borrar_consola()
+    print("Introduzca los números de la lotería y el reintegro.")
+    list_num = pedir_numero()
+    list_num.sort()
+    list_num.append(pedir_reintegro())
+    print(imprimir_numeros(list_num))
+    
     
 
 if __name__ == "__main__":
