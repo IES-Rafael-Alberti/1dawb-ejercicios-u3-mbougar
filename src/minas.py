@@ -98,7 +98,7 @@ def colocar_minas(tablero: list):
     """
     Esta función coloca las minas en el tablero de juego. Se asegura de que el número de minas colocadas sea igual a NUMERO_MINAS.
     """
-    contador_minas = 10
+    contador_minas = NUMERO_MINAS
     while contador_minas > 0:
         if tablero[random.randint(0, FILAS -1)][random.randint(0, COLUMNAS -1)] == VACIO:
             tablero[random.randint(0, FILAS -1)][random.randint(0, COLUMNAS -1)] = MINA
@@ -324,8 +324,8 @@ def jugar():
                 imprimir_tablero(tablero)
                 terminar_juego = True
         elif accion == MARCAR:
-            if len(celdas_marcadas) >= 10:
-                print("Ya tienes 10 celdas marcadas, quita alguna marca antes de poner marcas nuevas.")
+            if len(celdas_marcadas) >= NUMERO_MINAS:
+                print(f"Ya tienes {NUMERO_MINAS} celdas marcadas, quita alguna marca antes de poner marcas nuevas.")
             else:
                 marcar_celda(celdas_marcadas, fila, columna)
 
