@@ -269,10 +269,10 @@ def marcar_celda(celdas_marcadas: set, fila: int, columna: int):
     :param fila: fila de la celda seleccionada
     :param columna: columna de la celda seleccionada
     """
-    if (columna, fila) not in celdas_marcadas:
+    if (fila, columna) not in celdas_marcadas:
         celdas_marcadas.add((fila, columna))
     else:
-        celdas_marcadas.discard((columna, fila))
+        celdas_marcadas.discard((fila, columna))
 
 
 
