@@ -11,7 +11,7 @@ def crear_diccionario_datos() -> dict:
 
 def main():
     diccionario_datos = crear_diccionario_datos()
-    print(f"{diccionario_datos["nombre"]} tiene {diccionario_datos["edad"]} años, vive en {diccionario_datos["direccion"]} y su número de teléfono es {diccionario_datos["telefono"]}.")
+    print(f"{diccionario_datos['nombre']} tiene {diccionario_datos['edad']} años, vive en {diccionario_datos['direccion']} y su número de teléfono es {diccionario_datos['telefono']}.")
 
 
 if __name__ == "__main__":
